@@ -1,23 +1,24 @@
-# : << 'EOF'
 # Oh my tmux!
 # 💛🩷💙🖤❤️🤍
 # https://github.com/gpakosz/.tmux
-# (‑●‑●)> dual licensed under the WTFPL v2 license and the MIT license,
+# (-●-●)> dual licensed under the WTFPL v2 license and the MIT license,
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
-
-# -- bindings ------------------------------------------------------------------
+##### -------------------------------------------------------------------------
+##### -- bindings ------------------------------------------------------------------
+##### -------------------------------------------------------------------------
 
 # preserve tmux stock bindings,
 # while adding bindings that don't conflict with these stock bindings
-# /!\ this disables some of Oh my tmux! bindings described in README.md
+# /!\ this disables some of the Oh my tmux! bindings described in README.md
 #   - true
 #   - false (default)
 tmux_conf_preserve_stock_bindings=false
 
-
-# -- session creation ----------------------------------------------------------
+##### -------------------------------------------------------------------------
+##### -- session creation ----------------------------------------------------------
+##### -------------------------------------------------------------------------
 
 # prompt for session name when creating a new session, possible values are:
 #   - true
@@ -31,8 +32,9 @@ tmux_conf_new_session_prompt=false
 #   - disabled (do not modify new-session bindings)
 tmux_conf_new_session_retain_current_path=false
 
-
-# -- windows & pane creation ---------------------------------------------------
+##### -------------------------------------------------------------------------
+##### -- windows & pane creation ---------------------------------------------------
+##### -------------------------------------------------------------------------
 
 # new window retains current path, possible values are:
 #   - true
@@ -58,8 +60,9 @@ tmux_conf_new_pane_retain_current_path=true
 #   - disabled (do not modify split-window bindings)
 tmux_conf_new_pane_reconnect_ssh=false
 
-
-# -- display -------------------------------------------------------------------
+##### -------------------------------------------------------------------------
+##### -- display -------------------------------------------------------------------
+##### -------------------------------------------------------------------------
 
 # RGB 24-bit colour support, possible values are:
 #   - true
@@ -71,8 +74,9 @@ tmux_conf_new_pane_reconnect_ssh=false
 # see https://github.com/termstandard/colors
 tmux_conf_24b_colour=auto
 
-
-# -- theming -------------------------------------------------------------------
+##### -------------------------------------------------------------------------
+##### -- theming -------------------------------------------------------------------
+##### -------------------------------------------------------------------------
 
 # enable or disable theming:
 #   - enabled (default)
@@ -103,25 +107,6 @@ tmux_conf_theme_colour_14="#080808"   # dark gray
 tmux_conf_theme_colour_15="#080808"   # dark gray
 tmux_conf_theme_colour_16="#d70000"   # red
 tmux_conf_theme_colour_17="#e4e4e4"   # white
-
-# default theme (ansi)
-#tmux_conf_theme_colour_1="colour0"
-#tmux_conf_theme_colour_2="colour8"
-#tmux_conf_theme_colour_3="colour8"
-#tmux_conf_theme_colour_4="colour14"
-#tmux_conf_theme_colour_5="colour11"
-#tmux_conf_theme_colour_6="colour0"
-#tmux_conf_theme_colour_7="colour15"
-#tmux_conf_theme_colour_8="colour0"
-#tmux_conf_theme_colour_9="colour11"
-#tmux_conf_theme_colour_10="colour13"
-#tmux_conf_theme_colour_11="colour10"
-#tmux_conf_theme_colour_12="colour8"
-#tmux_conf_theme_colour_13="colour15"
-#tmux_conf_theme_colour_14="colour0"
-#tmux_conf_theme_colour_15="colour0"
-#tmux_conf_theme_colour_16="colour1"
-#tmux_conf_theme_colour_17="colour15"
 
 # window style
 tmux_conf_theme_window_fg="default"
@@ -197,8 +182,6 @@ tmux_conf_theme_window_status_fg="$tmux_conf_theme_colour_3"
 tmux_conf_theme_window_status_bg="$tmux_conf_theme_colour_1"
 tmux_conf_theme_window_status_attr="none"
 tmux_conf_theme_window_status_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
-#tmux_conf_theme_window_status_format="#{circled_window_index} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
-#tmux_conf_theme_window_status_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
 
 # window current status style
 #   - built-in variables are:
@@ -214,8 +197,6 @@ tmux_conf_theme_window_status_current_fg="$tmux_conf_theme_colour_1"
 tmux_conf_theme_window_status_current_bg="$tmux_conf_theme_colour_4"
 tmux_conf_theme_window_status_current_attr="bold"
 tmux_conf_theme_window_status_current_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
-#tmux_conf_theme_window_status_current_format="#{circled_window_index} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
-#tmux_conf_theme_window_status_current_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
 
 # window activity status style
 tmux_conf_theme_window_status_activity_fg="default"
@@ -237,10 +218,6 @@ tmux_conf_theme_left_separator_main=""
 tmux_conf_theme_left_separator_sub="|"
 tmux_conf_theme_right_separator_main=""
 tmux_conf_theme_right_separator_sub="|"
-#tmux_conf_theme_left_separator_main='\uE0B0'  # /!\ you don't need to install Powerline
-#tmux_conf_theme_left_separator_sub='\uE0B1'   #   you only need fonts patched with
-#tmux_conf_theme_right_separator_main='\uE0B2' #   Powerline symbols or the standalone
-#tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see README.md
 
 # status left/right content:
 #   - separate main sections with "|"
@@ -269,7 +246,6 @@ tmux_conf_theme_right_separator_sub="|"
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-# tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
 tmux_conf_theme_status_left=" ❐ #S | #{pretty_pane_current_path} "
 tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
 
@@ -316,8 +292,6 @@ tmux_conf_theme_synchronized_attr="none"
 # battery bar symbols
 tmux_conf_battery_bar_symbol_full="◼"
 tmux_conf_battery_bar_symbol_empty="◻"
-#tmux_conf_battery_bar_symbol_full="♥"
-#tmux_conf_battery_bar_symbol_empty="·"
 
 # battery bar length (in number of symbols), possible values are:
 #   - auto
@@ -330,8 +304,6 @@ tmux_conf_battery_bar_length="auto"
 #   - "colour_full_fg,colour_empty_fg,colour_bg"
 #   - gradient(colour_fg_1,colour_fg_2,...,colour_fg_n)
 tmux_conf_battery_bar_palette="gradient"
-#tmux_conf_battery_bar_palette="#d70000,#e4e4e4,#000000"   # red, white, black
-#tmux_conf_battery_bar_palette="gradient(#00afff,#47a2ff,#7c91ff,#ac7afb,#d65be2,#e163df,#eb6cdd,#f475db,#ec9ff1,#eac3fe,#efe2ff,#ffffff)"
 
 # battery hbar palette, possible values are:
 #   - gradient (default)
@@ -339,8 +311,6 @@ tmux_conf_battery_bar_palette="gradient"
 #   - "colour_low,colour_half,colour_full"
 #   - gradient(colour_fg_1,colour_fg_2,...,colour_fg_n)
 tmux_conf_battery_hbar_palette="gradient"
-#tmux_conf_battery_hbar_palette="#d70000,#ff5f00,#5fff00"  # red, orange, green
-#tmux_conf_battery_hbar_palette="gradient(#00afff,#47a2ff,#7c91ff,#ac7afb,#d65be2,#e163df,#eb6cdd,#f475db,#ec9ff1,#eac3fe,#efe2ff,#ffffff)"
 
 # battery vbar palette, possible values are:
 #   - gradient (default)
@@ -348,49 +318,44 @@ tmux_conf_battery_hbar_palette="gradient"
 #   - "colour_low,colour_half,colour_full"
 #   - gradient(colour_fg_1,colour_fg_2,...,colour_fg_n)
 tmux_conf_battery_vbar_palette="gradient"
-#tmux_conf_battery_vbar_palette="#d70000,#ff5f00,#5fff00"  # red, orange, green
-#tmux_conf_battery_vbar_palette="gradient(#00afff,#47a2ff,#7c91ff,#ac7afb,#d65be2,#e163df,#eb6cdd,#f475db,#ec9ff1,#eac3fe,#efe2ff,#ffffff)"
 
 # symbols used to indicate whether battery is charging or discharging
 tmux_conf_battery_status_charging="↑"       # U+2191
 tmux_conf_battery_status_discharging="↓"    # U+2193
-#tmux_conf_battery_status_charging="🔌"     # U+1F50C
-#tmux_conf_battery_status_discharging="🔋"  # U+1F50B
 
 # clock style (when you hit <prefix> + t)
 # you may want to use %I:%M %p in place of %R in tmux_conf_theme_status_right
 tmux_conf_theme_clock_colour="$tmux_conf_theme_colour_4"
 tmux_conf_theme_clock_style="24"
 
-##### Very obvious active pane
+##### -------------------------------------------------------------------------
+##### Your post-theme overrides (pane visibility, status, etc.)
+##### -------------------------------------------------------------------------
 
-# Inactive vs active pane borders (make active bright and thick-looking via color contrast)
 set -g pane-border-style fg=colour239
 set -g pane-active-border-style fg=colour196,bold
 
-# Strongly dim inactive panes (active stays normal)
-# set -g window-style 'bg=colour252' #!important
-# set -g window-active-style bg=default #!important
-
-# Active pane: your normal background
 set -g window-active-style "bg=#23272e" #!important
+set -g window-style "bg=#2f3540"        #!important
 
-# Inactive panes: lighter background
-set -g window-style "bg=#2f3540" #!important
-
-# Make "display-panes" (prefix + q) extremely clear
 set -g display-panes-colour colour250
 set -g display-panes-active-colour colour196
 
-# Optional: if you use pane titles, highlight active title
 set -g pane-border-status top
 set -g pane-border-format "#{?pane_active,#[fg=colour208]#[bold]ACTIVE#[default]  #{pane_index} #{pane_title},#[fg=colour245]inactive#[default]  #[fg=colour245]#{pane_index} #{pane_title}#[default]}"
 
+##### -------------------------------------------------------------------------
+##### General tmux options
+##### -------------------------------------------------------------------------
+
 set -g renumber-windows on
-
 set -g mouse on
+set -g status-position top
+set -g detach-on-destroy off  # don't exit from tmux when closing a session
 
-# -- clipboard -----------------------------------------------------------------
+##### -------------------------------------------------------------------------
+##### -- clipboard -----------------------------------------------------------------
+##### -------------------------------------------------------------------------
 
 # in copy mode, copying selection also copies to the OS clipboard
 #   - true
@@ -399,116 +364,8 @@ set -g mouse on
 # on Linux, this requires xsel, xclip or wl-copy
 tmux_conf_copy_to_os_clipboard=true
 
-# -- urlscan -------------------------------------------------------------------
-
-# options passed to urlscan
-tmux_conf_urlscan_options="--compact --dedupe"
-
-
-# -- user customizations -------------------------------------------------------
-
-# this is the place to override or undo settings
-
-# increase history size
-#set -g history-limit 10000
-
-# start with mouse mode enabled
-#set -g mouse on
-
-# force Vi mode
-#   really you should export VISUAL or EDITOR environment variable, see manual
-#set -g status-keys vi
-#set -g mode-keys vi
-
-# replace C-b by C-a instead of using both prefixes
-set -gu prefix2
-unbind C-a
-unbind C-b
-set -g prefix C-a
-bind C-a send-prefix
-
-bind-key l send-keys C-l
-
-bind-key C-a last-window
-
-# if you don't want Oh my tmux! to alter a binding or a setting, use #!important
-# bind c new-window -c '#{pane_current_path}' #!important
-
-# display a message after toggling mouse support
-bind m run "cut -c3- '#{TMUX_CONF}' | sh -s _toggle_mouse" \; display 'mouse #{?#{mouse},on,off}'
-
-# move status line to top
-set -g status-position top
-
-# Kill pane without confirmation
-unbind x
-bind-key x kill-pane # skip "kill-pane 1? (y/n)" prompt
-
-set -g detach-on-destroy off  # don't exit from tmux when closing a session
-
-bind -N "last-session (via sesh) " L run-shell "sesh last"
-bind -N "switch to root session (via sesh) " 9 run-shell "sesh connect --root \'$(pwd)\'"
-bind-key "R" display-popup -E -w 40% "sesh connect \"$(
-  sesh list -i -H | gum filter --value \"$(sesh root)\" --limit 1 --fuzzy --no-sort --placeholder 'Pick a sesh' --prompt='⚡'
-)\""
-
-# -- tpm -----------------------------------------------------------------------
-
-# while I don't use tpm myself, many people requested official support so here
-# is a seamless integration that automatically installs plugins in parallel
-
-# whenever a plugin introduces a variable to be used in 'status-left' or
-# 'status-right', you can use it in 'tmux_conf_theme_status_left' and
-# 'tmux_conf_theme_status_right' variables.
-
-# by default, launching tmux will update tpm and all plugins
-#   - true (default)
-#   - false
-tmux_conf_update_plugins_on_launch=true
-
-# by default, reloading the configuration will update tpm and all plugins
-#   - true (default)
-#   - false
-tmux_conf_update_plugins_on_reload=true
-
-# by default, reloading the configuration will uninstall tpm and plugins when no
-# plugins are enabled
-#   - true (default)
-#   - false
-tmux_conf_uninstall_plugins_on_reload=true
-
-# /!\ the tpm bindings differ slightly from upstream:
-#   - installing plugins: <prefix> + I
-#   - uninstalling plugins: <prefix> + Alt + u
-#   - updating plugins: <prefix> + u
-
-# /!\ do not add set -g @plugin 'tmux-plugins/tpm'
-# /!\ do not add run '~/.tmux/plugins/tpm/tpm'
-
-# /!\ the 'set -g @tpm_plugins' syntax is not supported
-# to enable a plugin, use the 'set -g @plugin' syntax:
-# visit https://github.com/tmux-plugins for available plugins
-
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @plugin 'loichyan/tmux-toggle-popup'
-set -g @plugin 'laktak/extrakto'
-set -g @plugin 'sainnhe/tmux-fzf'
-set -g @plugin 'christoomey/vim-tmux-navigator'
-set -g @plugin 'tmux-plugins/tmux-yank'
-set -g @plugin 'schasse/tmux-jump'
-# set -g @catppuccin_flavor 'mocha'
-# set -g @plugin 'tmux-plugins/tmux-copycat'
-# set -g @plugin 'junegunn/tmux-fzf-url'
-# set -g @plugin 'tmux-plugins/tmux-cpu'
-# set -g @plugin 'jaclu/tmux-meus'
-# set -g @plugin 'omerxx/tmux-sessionx'
-
-set -g @popup-on-init '
-  set -g mode-keys vi;
-  set -g set-clipboard external;
-  run-shell "~/.tmux/plugins/tpm/tpm";
-'
+# keep external clipboard integration on globally
+set -g set-clipboard external
 
 # In the popup server, forward copies to the main server buffer
 if -F '#{TMUX_POPUP_SERVER}' {
@@ -516,6 +373,7 @@ if -F '#{TMUX_POPUP_SERVER}' {
   bind -T copy-mode-vi y send -X copy-pipe-and-cancel
   bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel
 }
+
 # Wayland
 if -b '[ "$XDG_SESSION_TYPE" = "wayland" ] && command -v wl-copy >/dev/null 2>&1' {
   bind -T copy-mode-vi y send -X copy-pipe-and-cancel "wl-copy"
@@ -546,26 +404,48 @@ if -b 'command -v clip.exe >/dev/null 2>&1' {
   bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "clip.exe"
 }
 
+##### -------------------------------------------------------------------------
+##### -- urlscan -------------------------------------------------------------------
+##### -------------------------------------------------------------------------
+
+# options passed to urlscan
+tmux_conf_urlscan_options="--compact --dedupe"
+
+##### -------------------------------------------------------------------------
+##### -- user customizations -------------------------------------------------------
+##### -------------------------------------------------------------------------
+
+# replace C-b by C-a instead of using both prefixes
+set -gu prefix2
+unbind C-a
+unbind C-b
+set -g prefix C-a
+bind C-a send-prefix
+
+bind-key l send-keys C-l
+
+bind-key C-a last-window
+
+# display a message after toggling mouse support
+bind m run "cut -c3- '#{TMUX_CONF}' | sh -s _toggle_mouse" \; display 'mouse #{?#{mouse},on,off}'
+
+# Kill pane without confirmation
+unbind x
+bind-key x kill-pane # skip "kill-pane 1? (y/n)" prompt
+
 # toggle synchronized panes (broadcast input to all panes in the window)
 bind S setw synchronize-panes  #!important
 
-# Toggle a general-purpose popup shell (Alt-t), starts in current pane path
-bind -n M-t if-shell -F '#{==:#{@popup-toggle},}' \
-  'detach-client' \
-  'run-shell "#{@popup-toggle} -w75% -h75% -Ed'\''##{pane_current_path}'\''"'
-
-# Toggle a named popup (Alt-g) running lazygit; same popup reused by name
-bind -n M-g run "#{@popup-toggle} -w90% -h90% -Ed'##{pane_current_path}' --name=lazygit lazygit"
-
-bind -n M-q if-shell -F '#{==:#{@popup-toggle},}' \
-  'detach-client' \
-  'run-shell "#{@popup-toggle} -w90% -h90% -Ed'\''##{pane_current_path}'\'' --name=lazysql lazysql"'
-
-# Bind Prefix + X (capital X) to open extrakto for current pane
-bind-key -T prefix X run-shell "~/.tmux/plugins/extrakto/scripts/open.sh \"#{pane_id}\""
+# sesh bindings
+bind -N "last-session (via sesh) " L run-shell "sesh last"
+bind -N "switch to root session (via sesh) " 9 run-shell "sesh connect --root '$(pwd)'"
+bind-key "R" display-popup -E -w 40% "sesh connect \"$(
+  sesh list -i -H | gum filter --value \"$(sesh root)\" --limit 1 --fuzzy --no-sort --placeholder 'Pick a sesh' --prompt='⚡'
+)\""
 
 bind-key "T" run-shell "sesh connect \"$( \
   sesh list --icons | fzf-tmux -p 80%,70% \
+    --layout='reverse' \
     --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
     --header '^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
     --bind 'tab:down,btab:up' \
@@ -579,13 +459,83 @@ bind-key "T" run-shell "sesh connect \"$( \
     --preview 'sesh preview {}' \
 )\""
 
+# tmux-toggle-popup bindings
+bind -n M-t if-shell -F '#{==:#{@popup-toggle},}' \
+  'detach-client' \
+  'run-shell "#{@popup-toggle} -w75% -h75% -Ed'\''##{pane_current_path}'\''"'
+
+bind -n M-g run "#{@popup-toggle} -w90% -h90% -Ed'##{pane_current_path}' --name=lazygit lazygit"
+
+bind -n M-q if-shell -F '#{==:#{@popup-toggle},}' \
+  'detach-client' \
+  'run-shell "#{@popup-toggle} -w90% -h90% -Ed'\''##{pane_current_path}'\'' --name=lazysql lazysql"'
+
+# Bind Prefix + X (capital X) to open extrakto for current pane
+bind-key -T prefix X run-shell "~/.tmux/plugins/extrakto/scripts/open.sh \"#{pane_id}\""
+
 # remove tmux-jump's prefix-table binding (default is j; change if you set @jump-key)
 unbind-key -T prefix j
 
 # bind tmux-jump only in copy-mode (press plain "s" while in copy-mode)
 bind-key -T copy-mode-vi s run-shell -b "$HOME/.tmux/plugins/tmux-jump/scripts/tmux-jump.sh"
 
-# == Plugin options == #
+# prefix + f : enter copy-mode, prompt for pattern, jump to it
+bind-key f command-prompt -p "jump:" \
+  "copy-mode; send-keys -X search-forward \"%%\""
+
+
+##### -------------------------------------------------------------------------
+##### -- tpm -----------------------------------------------------------------------
+##### -------------------------------------------------------------------------
+
+# while I don't use tpm myself, many people requested official support so here
+# is a seamless integration that automatically installs plugins in parallel
+#
+# whenever a plugin introduces a variable to be used in 'status-left' or
+# 'status-right', you can use it in 'tmux_conf_theme_status_left' and
+# 'tmux_conf_theme_status_right' variables.
+#
+# by default, launching tmux will update tpm and all plugins
+#   - true (default)
+#   - false
+tmux_conf_update_plugins_on_launch=true
+
+# by default, reloading the configuration will update tpm and all plugins
+#   - true (default)
+#   - false
+tmux_conf_update_plugins_on_reload=true
+
+# by default, reloading the configuration will uninstall tpm and plugins when no
+# plugins are enabled
+#   - true (default)
+#   - false
+tmux_conf_uninstall_plugins_on_reload=true
+
+# /!\ the tpm bindings differ slightly from upstream:
+#   - installing plugins: <prefix> + I
+#   - uninstalling plugins: <prefix> + Alt + u
+#   - updating plugins: <prefix> + u
+#
+# /!\ do not add set -g @plugin 'tmux-plugins/tpm'
+# /!\ do not add run '~/.tmux/plugins/tpm/tpm'
+#
+# /!\ the 'set -g @tpm_plugins' syntax is not supported
+# to enable a plugin, use the 'set -g @plugin' syntax:
+# visit https://github.com/tmux-plugins for available plugins
+
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'loichyan/tmux-toggle-popup'
+set -g @plugin 'laktak/extrakto'
+set -g @plugin 'sainnhe/tmux-fzf'
+set -g @plugin 'christoomey/vim-tmux-navigator'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'schasse/tmux-jump'
+
+##### -------------------------------------------------------------------------
+##### Plugin options
+##### -------------------------------------------------------------------------
+
 set -g @popup-autostart on
 set -gF @popup-id-format "#{b:pane_current_path}/{popup_name}"
 set -g @popup-on-init 'nop'
@@ -595,7 +545,10 @@ set -g @continuum-boot 'on'
 set -g @continuum-restore 'on'
 set -g @continuum-save-interval 5
 
-# Allow tmux server to import PATH (and other common env vars) from the client
+##### -------------------------------------------------------------------------
+##### Environment
+##### -------------------------------------------------------------------------
+
 set-environment -g EDITOR "nvim"
 set-environment -g VISUAL "nvim"
 set -g update-environment "DISPLAY SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY PATH EDITOR VISUAL"
