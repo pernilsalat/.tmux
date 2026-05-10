@@ -354,54 +354,26 @@ set -g status-position top
 set -g detach-on-destroy off  # don't exit from tmux when closing a session
 
 ##### -------------------------------------------------------------------------
-##### -- clipboard -----------------------------------------------------------------
+##### -- clipboard -------------------------------------------------------------
 ##### -------------------------------------------------------------------------
 
-# in copy mode, copying selection also copies to the OS clipboard
-#   - true
-#   - false (default)
-#   - disabled
-# on Linux, this requires xsel, xclip or wl-copy
 tmux_conf_copy_to_os_clipboard=true
-
-# keep external clipboard integration on globally
 set -g set-clipboard external
 
-# In the popup server, forward copies to the main server buffer
-if -F '#{TMUX_POPUP_SERVER}' {
-  set -g copy-command '~/.tmux/plugins/tmux-toggle-popup/bin/proxy loadb -w -'
+# Wayland normal tmux server
+if -b '[ -n "$WAYLAND_DISPLAY" ] && command -v wl-copy >/dev/null 2>&1' {
+  set -g copy-command 'wl-copy'
   bind -T copy-mode-vi y send -X copy-pipe-and-cancel
+  bind -T copy-mode-vi Enter send -X copy-pipe-and-cancel
   bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel
 }
 
-# Wayland
-if -b '[ "$XDG_SESSION_TYPE" = "wayland" ] && command -v wl-copy >/dev/null 2>&1' {
-  bind -T copy-mode-vi y send -X copy-pipe-and-cancel "wl-copy"
-  bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "wl-copy"
-}
-
-# X11 (xclip)
-if -b 'command -v xclip >/dev/null 2>&1' {
-  bind -T copy-mode-vi y send -X copy-pipe-and-cancel "xclip -in -selection clipboard >/dev/null 2>&1"
-  bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "xclip -in -selection clipboard >/dev/null 2>&1"
-}
-
-# X11 (xsel) fallback
-if -b 'command -v xsel >/dev/null 2>&1' {
-  bind -T copy-mode-vi y send -X copy-pipe-and-cancel "xsel -i -b"
-  bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "xsel -i -b"
-}
-
-# macOS
-if -b 'command -v pbcopy >/dev/null 2>&1' {
-  bind -T copy-mode-vi y send -X copy-pipe-and-cancel "pbcopy"
-  bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "pbcopy"
-}
-
-# Windows / WSL
-if -b 'command -v clip.exe >/dev/null 2>&1' {
-  bind -T copy-mode-vi y send -X copy-pipe-and-cancel "clip.exe"
-  bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "clip.exe"
+# X11 fallback
+if -b '[ -z "$WAYLAND_DISPLAY" ] && command -v xclip >/dev/null 2>&1' {
+  set -g copy-command 'xclip -in -selection clipboard >/dev/null 2>&1'
+  bind -T copy-mode-vi y send -X copy-pipe-and-cancel
+  bind -T copy-mode-vi Enter send -X copy-pipe-and-cancel
+  bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel
 }
 
 ##### -------------------------------------------------------------------------
@@ -462,33 +434,21 @@ bind-key "T" run-shell "sesh connect \"$( \
     --preview 'sesh preview {}' \
 )\""
 
-# tmux-toggle-popup bindings
-bind -n M-t if-shell -F '#{==:#{@popup-toggle},}' \
-  'detach-client' \
-  'run-shell "#{@popup-toggle} -w80% -h80% -Ed'\''##{pane_current_path}'\''"'
-
-bind -n M-g if-shell -F '#{==:#{@popup-toggle},}' \
-  'detach-client' \
-  'run-shell "#{@popup-toggle} -w90% -h90% -Ed'\''##{pane_current_path}'\'' --name=lazygit lazygit"'
-
-
-bind -n M-q if-shell -F '#{==:#{@popup-toggle},}' \
-  'detach-client' \
-  'run-shell "#{@popup-toggle} -w90% -h90% -Ed'\''##{pane_current_path}'\'' --name=lazysql lazysql"'
+# workmux bindings
+bind w display-menu -x C -y C -T "workmux" \
+    "add"             a "popup -d '#{pane_current_path}' -w 80% -h 20% -x C -y C -E '$HOME/.config/tmux/scripts/workmux-add-branch.sh'" \
+    "add from branch" b "popup -d '#{pane_current_path}' -w 80% -h 80% -x C -y C -E '$HOME/.config/tmux/scripts/workmux-add-from-branch.sh'" \
+    "add with prompt" p "popup -d '#{pane_current_path}' -w 80% -h 25% -x C -y C -E '$HOME/.config/tmux/scripts/workmux-add-prompt.sh'" \
+    "" \
+    "open"             o "popup -d '#{pane_current_path}' -w 80% -h 80% -x C -y C -E '$HOME/.config/tmux/scripts/workmux-fzf.sh open'" \
+    "" \
+    "dashboard"        d "popup -d '#{pane_current_path}' -w 90% -h 90% -x C -y C -E 'workmux dashboard'" \
+    "sidebar"          s "run-shell 'workmux sidebar'" \
+    "" \
+    "quit"             q ""
 
 # Bind Prefix + X (capital X) to open extrakto for current pane
-bind-key -T prefix X run-shell "~/.tmux/plugins/extrakto/scripts/open.sh \"#{pane_id}\""
-
-# remove tmux-jump's prefix-table binding (default is j; change if you set @jump-key)
-unbind-key -T prefix j
-
-# bind tmux-jump only in copy-mode (press plain "s" while in copy-mode)
-bind-key -T copy-mode-vi s run-shell -b "$HOME/.tmux/plugins/tmux-jump/scripts/tmux-jump.sh"
-
-# prefix + f : enter copy-mode, prompt for pattern, jump to it
-bind-key f command-prompt -p "jump:" \
-  "copy-mode; send-keys -X search-forward \"%%\""
-
+bind-key -T prefix X run-shell "$HOME/.config/tmux/plugins/extrakto/scripts/open.sh \"#{pane_id}\""
 
 ##### -------------------------------------------------------------------------
 ##### -- tpm -----------------------------------------------------------------------
@@ -533,21 +493,42 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'loichyan/tmux-toggle-popup'
 set -g @plugin 'laktak/extrakto'
-set -g @plugin 'sainnhe/tmux-fzf'
 set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'tmux-plugins/tmux-yank'
-set -g @plugin 'schasse/tmux-jump'
+set -g @plugin 'AndreVicencio/tmux-flash'
 
 ##### -------------------------------------------------------------------------
 ##### Plugin options
 ##### -------------------------------------------------------------------------
 
+##### -------------------------------------------------------------------------
+##### tmux-toggle-popup
+##### -------------------------------------------------------------------------
+
+# Use a separate popup tmux server.
+# Important: do NOT set @popup-socket-path here.
+# set -gu @popu-socket-path
+set -g @popup-socket-name popup
+
+# Start popup server when tmux starts, so first popup is faster.
 set -g @popup-autostart on
-set -gF @popup-id-format "#{b:pane_current_path}/{popup_name}"
-set -g @popup-on-init 'nop'
+
+# Popup-specific session setup.
+# detach-on-destroy on is important because your main config has it off.
+set -g @popup-on-init 'source-file "$HOME/.config/tmux/tmux.conf.popup"'
+
+# tmux-toggle-popup bindings
+bind -n M-t run "#{@popup-toggle} -w80% -h80% -Ed'##{pane_current_path}'"
+
+bind -n M-g run "#{@popup-toggle} -w90% -h90% -Ed'##{pane_current_path}' --name=lazygit lazygit"
+
+bind -n M-q run "#{@popup-toggle} -w90% -h90% -Ed'##{pane_current_path}' --name=lazysql lazysql"
+
+bind -n M-f copy-mode \; run-shell -b "$HOME/.config/tmux/plugins/tmux-flash/flash.sh"
+############################
 
 set -g @resurrect-dir '~/dotfiles/resurrect/'
-set -g @continuum-boot 'on'
+set -g @continuum-boot 'off'
 set -g @continuum-restore 'on'
 set -g @continuum-save-interval 5
 
@@ -557,7 +538,7 @@ set -g @continuum-save-interval 5
 
 set-environment -g EDITOR "nvim"
 set-environment -g VISUAL "nvim"
-set -g update-environment "DISPLAY SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY PATH EDITOR VISUAL"
+set -g update-environment "DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_RUNTIME_DIR SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY PATH EDITOR VISUAL"
 
 # -- custom variables ----------------------------------------------------------
 
