@@ -1,0 +1,14 @@
+# Popup server behaviour
+set -g exit-empty off
+set -g status off
+set -g detach-on-destroy on
+
+# Only initialize these once per popup server.
+if -F '#{!=:#{@popup_plugins_loaded},1}' {
+  set -g @popup_plugins_loaded 1
+
+  run-shell "$HOME/.config/tmux/plugins/tmux-yank/yank.tmux"
+  run-shell "$HOME/.config/tmux/plugins/extrakto/extrakto.tmux"
+  run-shell "$HOME/.config/tmux/plugins/tmux-toggle-popup/toggle-popup.tmux"
+  run-shell "$HOME/.config/tmux/plugins/tmux-flash/flash.tmux"
+}
